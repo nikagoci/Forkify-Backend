@@ -10,6 +10,7 @@ mongoose.connect(DB).then(() => console.log('DB is connected'));
 const fetchAllData = async () => {
     try {
         const response = await axios.get('https://forkify-api.herokuapp.com/api/search?q=pizza');
+        const allId = response.data.recipes.map(item => {
             return item.recipe_id
         })
         
