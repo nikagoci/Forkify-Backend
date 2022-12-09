@@ -19,7 +19,6 @@ let schema = mongoose.Schema({
     publisher_url: String,
     title: {
         type: String,
-        unique: [true, 'recipe title should be unique'],
         trim: true,
         required: [true, 'recipe should have title']
     }

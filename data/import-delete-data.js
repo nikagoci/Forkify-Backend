@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const axios = require('axios')
 const dotenv = require('dotenv');
 const Recipe = require('../models/recipesModel');
+
 dotenv.config({path: './config.env'})
 
 let DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
@@ -9,13 +10,12 @@ mongoose.connect(DB).then(() => console.log('DB is connected'));
 
 const data = [];
 
-const fetchAllData = async () => {
+const fetchAllData = async (food) => {
     try {
-        const response = await axios.get('https://forkify-api.herokuapp.com/api/search?q=pizza');
+        const response = await axios.get(`https://forkify-api.herokuapp.com/api/search?q=${food}`);
         const allId = response.data.recipes.map(item => {
             return item.recipe_id
         })
-        
   
         allId.forEach( async (id) => {
             const allData = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`);
@@ -33,13 +33,15 @@ const fetchAllData = async () => {
 
 const importData = async() => {
     try{
-        fetchAllData()
-        setTimeout(async () => {
-            await Recipe.create(data)
-        }, 1500)
+        fetchAllData('pizza');
+
+        setTimeout(async() => {
+            const mainData = data.map(el => el.recipe);
+            await Recipe.create(mainData)
+            console.log('Data is imported')
+        }, 2000)
         
         
-        console.log('Data is imported')
     }catch(err) {
         console.log(err)
     }
