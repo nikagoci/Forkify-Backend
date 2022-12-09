@@ -7,6 +7,8 @@ dotenv.config({path: './config.env'})
 let DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 mongoose.connect(DB).then(() => console.log('DB is connected'));
 
+const data = [];
+
 const fetchAllData = async () => {
     try {
         const response = await axios.get('https://forkify-api.herokuapp.com/api/search?q=pizza');
@@ -14,13 +16,16 @@ const fetchAllData = async () => {
             return item.recipe_id
         })
         
-        const data = [];
-        allId.forEach(async (id) => {
+  
+        allId.forEach( async (id) => {
             const allData = await axios.get(`https://forkify-api.herokuapp.com/api/get?rId=${id}`);
+            
             data.push(allData.data)
         })
 
-        return data
+        setTimeout(() => {
+            return data
+        }, 1000)
     } catch (err) {
         console.log('err')
     }
@@ -28,8 +33,12 @@ const fetchAllData = async () => {
 
 const importData = async() => {
     try{
-        console.log(fetchAllData())
-
+        fetchAllData()
+        setTimeout(async () => {
+            await Recipe.create(data)
+        }, 1500)
+        
+        
         console.log('Data is imported')
     }catch(err) {
         console.log(err)
