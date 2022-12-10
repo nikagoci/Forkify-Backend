@@ -2,7 +2,16 @@ const Recipe = require("../models/recipesModel");
 
 exports.getAllRecipe = async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const queryObj = { ... req.query};
+    const excludeQueries = ['page', 'limit', 'sort', 'fields'];
+    excludeQueries.forEach(el => {
+      delete queryObj[el]
+    })
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`)
+
+    const recipes = await Recipe.find(JSON.parse(queryStr));
 
     res.status(200).json({
       status: "success",
