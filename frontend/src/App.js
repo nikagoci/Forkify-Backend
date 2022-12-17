@@ -1,10 +1,9 @@
 import './App.css';
+import MainForkify from './components/MainForkify';
 
 function App() {
   return (
-    <div className="App">
-      <h1>red</h1>
-    </div>
+    <MainForkify />
   );
 }
 
