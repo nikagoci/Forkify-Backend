@@ -14,3 +14,12 @@ body{
   text-rendering: optimizeLegibility;
   font-weight: 500;
 }
+
+input::placeholder{
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+}
+
+input:focus, input:focus-visible{
+  outline: none;
+}
