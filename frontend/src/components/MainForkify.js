@@ -9,7 +9,7 @@ const MainForkify = () => {
   return (
     <section id="hero" style={{height: '130vh'}}>
         <Stack height='100%'>
-          <Stack backgroundColor='#F9F5F3' width='1200px' height='1100px' borderRadius='10px' margin='auto'>
+          <Stack backgroundColor='#F9F5F3' width='1200px' height='1300px' borderRadius='10px' margin='auto'>
             <TopForkify />
             <Stack direction='row' height='100%'>
               <ResultSide />
