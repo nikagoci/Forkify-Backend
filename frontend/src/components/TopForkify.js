@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 import React from "react";
 
 import Logo from "../img/logo.png";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const TopForkify = () => {
   return (
@@ -15,8 +15,7 @@ const TopForkify = () => {
         <Input />
       </Stack>
       <Stack direction='row' position='relative' top={0} left={0}>
-        <FavoriteBorderIcon sx={{color: 'red', fontSize: '40px'}} />
-        <Stack position='absolute' bottom='5px' right='-1px' width='20px' height='20px' backgroundColor='rgba(0,0,0,0.4)' color='#fff' borderRadius='20px' justifyContent='center' alignItems='center' >0</Stack>
+        <FavoriteIcon sx={{color: '#F59A83', fontSize: '40px'}} />
       </Stack>
     </Stack>
   );

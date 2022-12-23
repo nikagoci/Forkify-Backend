@@ -141,8 +141,8 @@ const RecipeSide = () => {
           padding="0 20px"
           justifyContent="center"
         >
-          {fakeIngredients.map((ingredient) => (
-            <Stack direction="row" flexBasis="50%" marginBottom="15px">
+          {fakeIngredients.map((ingredient, index) => (
+            <Stack key={index} direction="row" flexBasis="50%" marginBottom="15px">
               <CheckIcon sx={{ color: "#f38e82", marginRight: "8px" }} />
               <Typography variant="subtitle2" component="h6">
                 {ingredient}
