@@ -3,17 +3,19 @@ const APIFeatures = require("../utils/apiFeatures");
 
 exports.getAllRecipe = async (req, res) => {
   try {
-    
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     const features = new APIFeatures(Recipe.find(), req.query)
       .filter()
       .sort()
       .fieldLimit()
       .paginate();
+
+    const allRecipe = await Recipe.find();
     const recipes = await features.query;
 
     res.status(200).json({
       status: "success",
-      length: recipes.length,
+      length: allRecipe.length,
       recipes,
     });
   } catch (err) {
@@ -28,6 +30,7 @@ exports.getAllRecipe = async (req, res) => {
 
 exports.getRecipe = async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     const singleRecipe = await Recipe.findById(req.params.id);
 
     res.status(200).json({
