@@ -31,6 +31,7 @@ const RecipeCook = ({data}) => {
             direction="row"
             justifyContent="space-between"
           >
+            <a href={data.source_url} target="_blank" rel="noreferrer">
             <Button
               variant="contained"
               color="primary"
@@ -51,6 +52,7 @@ const RecipeCook = ({data}) => {
               />
               Directions
             </Button>
+            </a>
           </Stack>
       </Stack>
   )

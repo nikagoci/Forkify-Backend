@@ -2,6 +2,7 @@ import Input from "../Utils/Input";
 import { Stack } from "@mui/system";
 import React, { useContext, useState } from "react";
 import Context from "../context/Context";
+import AddRecipe from './AddRecipe'
 
 import Logo from "../img/logo.png";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -20,7 +21,10 @@ const TopForkify = ({setRecipeId}) => {
         <Stack>
           <Input />
         </Stack>
-        <Stack direction="row" position="relative" top={0} left={0}>
+        <Stack>
+        </Stack>
+        <Stack direction="row" position="relative" top={0} left={0} alignItems='center'>
+          <AddRecipe />
           {ctx.items.length > 0 && (
             <FavoriteIcon
               sx={{ color: "#F59A83", fontSize: "40px", cursor: "pointer" }}
