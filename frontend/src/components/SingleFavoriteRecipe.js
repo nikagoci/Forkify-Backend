@@ -6,8 +6,25 @@ const SingleFavoriteRecipe = ({ item, setRecipeId, setHover }) => {
   const handleClick = () => {
     setRecipeId(item._id);
     setHover(false)
-
   }
+
+  const convertTitle = (title) => {
+    let newTitle = [];
+
+    if (title.length > 25) {
+      title.split(" ").reduce((acc, cur) => {
+        if (acc + cur.length <= 25) {
+          newTitle.push(cur);
+        }
+        return acc + cur.length;
+      }, 0);
+
+      return `${newTitle.join(" ")}...`;
+    }
+
+    return title;
+  };
+
   return (
     <Stack
       direction="row"
@@ -37,7 +54,7 @@ const SingleFavoriteRecipe = ({ item, setRecipeId, setHover }) => {
           color="#f38e82"
           textTransform="uppercase"
         >
-          {item.title}
+          {convertTitle(item.title)}
         </Typography>
         <Typography variant="subtitle2" component="p">
             {item.publisher}

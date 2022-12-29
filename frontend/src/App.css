@@ -38,3 +38,9 @@ input:focus-visible {
   background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
   opacity: 0.7;
 }
+
+.input-data:focus{
+  border: 1px solid #f38e82 !important;
+  background-color: #f9f5f3 !important;
+  outline: none;
+}
