@@ -2,6 +2,7 @@ import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import SingleResult from "./SingleResult";
 import Pagination from "./Pagination";
+import axios from 'axios'
 
 import Spinner from "../Spinner";
 
@@ -13,18 +14,18 @@ const ResultSide = ({setRecipeId, setIsDataLoaded}) => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(
+      const response = await axios.get(
         `http://localhost:5000/api/v1/recipes?limit=9&page=${page}`
       );
-      const json = await res.json();
-      setData(json.recipes);
-      setAllRecipe(json.length);
+      const allData = response.data;
+      setData(allData.recipes);
+      setAllRecipe(allData.length);
       setLoading(false);
       setIsDataLoaded(true)
     }
 
     fetchData();
-  }, [page]);
+  }, [page, setIsDataLoaded]);
 
   let totalPages;
   if (allRecipe !== 0) {

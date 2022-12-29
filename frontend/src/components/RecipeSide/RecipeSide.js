@@ -2,6 +2,7 @@ import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 
 import Spinner from "../../components/Spinner";
+import axios from "axios";
 
 import RecipeIngredients from "./RecipeIngredients";
 import RecipeDetails from "./RecipeDetails";
@@ -14,11 +15,11 @@ const RecipeSide = ({ recipeId }) => {
   useEffect(() => {
     if (recipeId) {
       async function fetchData() {
-        const response = await fetch(
+        const response = await axios.get(
           `http://localhost:5000/api/v1/recipes/${recipeId}`
         );
-        const json = await response.json();
-        setData(json.recipe);
+        const allData = response.data;
+        setData(allData.recipe);
         setIsLoading(false);
       }
 
