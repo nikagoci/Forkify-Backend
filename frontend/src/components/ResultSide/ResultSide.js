@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 
 import Spinner from "../Spinner";
 
-const ResultSide = ({setRecipeId}) => {
+const ResultSide = ({setRecipeId, setIsDataLoaded}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allRecipe, setAllRecipe] = useState(0);
@@ -20,6 +20,7 @@ const ResultSide = ({setRecipeId}) => {
       setData(json.recipes);
       setAllRecipe(json.length);
       setLoading(false);
+      setIsDataLoaded(true)
     }
 
     fetchData();

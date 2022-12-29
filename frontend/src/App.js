@@ -1,9 +1,12 @@
 import './App.css';
 import MainForkify from './components/MainForkify';
+import { ContextProvider } from './context/Context';
 
 function App() {
   return (
-    <MainForkify />
+    <ContextProvider >
+      <MainForkify />
+    </ContextProvider>
   );
 }
 

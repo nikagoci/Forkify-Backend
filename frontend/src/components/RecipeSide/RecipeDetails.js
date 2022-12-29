@@ -1,14 +1,20 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Context from "../../context/Context";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+
 
 const RecipeDetails = ({ data, isLoading }) => {
   const [serving, setServing] = useState(4);
+  const [isClicked, setIsClicked] = useState(false);
+  const ctx = useContext(Context);
+
   let timeCalculator;
 
   if (data.ingredients.length >= 0 && data.ingredients.length <= 10) {
@@ -23,22 +29,43 @@ const RecipeDetails = ({ data, isLoading }) => {
 
   useEffect(() => {
     setServing(4);
+
+    for (let i = 0; i < ctx.items.length; i++) {
+      const item = ctx.items[i];
+
+      if (item._id === data._id) {
+        setIsClicked(true)
+        break;
+      } else {
+        setIsClicked(false)
+      }
+    }
   }, [data]);
 
-  let handleAdd = () => {
+  const handleAdd = () => {
     setServing((prev) => prev + 1);
     if (serving === 20) {
       setServing(20);
     }
   };
 
-  let handleRemove = () => {
+  const handleRemove = () => {
     setServing((prev) => prev - 1);
     if (serving === 1) {
       setServing(1);
     }
   };
 
+
+  const handleClick = () => {
+    setIsClicked(prev => !prev);
+   
+    if(!isClicked){
+      ctx.addToFavorites(data)
+    } else{
+      ctx.removeFromFavorites(data._id)
+    }
+  }
 
   return (
     <Stack marginBottom="20px">
@@ -152,8 +179,9 @@ const RecipeDetails = ({ data, isLoading }) => {
           }}
           alignItems="center"
           justifyContent="center"
+          onClick={handleClick}
         >
-          <BookmarksIcon sx={{ color: "#fff" }} />
+         {!isClicked ? <BookmarkBorderIcon sx={{color: '#fff'}} /> :  <BookmarkIcon sx={{ color: "#fff" }} /> }
         </Stack>
       </Stack>
     </Stack>
