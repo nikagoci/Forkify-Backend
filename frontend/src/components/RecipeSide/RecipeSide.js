@@ -27,11 +27,11 @@ const RecipeSide = ({ recipeId }) => {
   }, [recipeId]);
 
   return (
-    <Stack flexBasis="50%">
+    <Stack flexBasis="70%">
       {!isLoading && recipeId && (
         <>
           <RecipeDetails data={data} isLoading={isLoading} />
-          <RecipeIngredients data={data} />
+          <RecipeIngredients data={data}  />
           <RecipeCook data={data} />
         </>
       )}

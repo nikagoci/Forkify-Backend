@@ -31,7 +31,7 @@ const ResultSide = ({setRecipeId}) => {
   }
 
   return (
-    <Stack flexBasis="25%" backgroundColor="#fff" padding="40px 0">
+    <Stack flexBasis="30%" backgroundColor="#fff" padding="40px 0">
       {loading && <Spinner />}
       <Stack marginBottom="15px">
         {data.map((recipe, ind) => (

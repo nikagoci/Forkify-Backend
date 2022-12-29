@@ -1,5 +1,5 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
@@ -8,11 +8,43 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 
 const RecipeDetails = ({ data, isLoading }) => {
+  const [serving, setServing] = useState(4);
+  let timeCalculator;
+
+  if (data.ingredients.length >= 0 && data.ingredients.length <= 10) {
+    timeCalculator = 30;
+  } else if (data.ingredients.length >= 10 && data.ingredients.length <= 15) {
+    timeCalculator = 45;
+  } else if (data.ingredients.length >= 15 && data.ingredients.length <= 25) {
+    timeCalculator = 60;
+  } else if (data.ingredients.length >= 25 && data.ingredients.length <= 35) {
+    timeCalculator = 75;
+  }
+
+  useEffect(() => {
+    setServing(4);
+  }, [data]);
+
+  let handleAdd = () => {
+    setServing((prev) => prev + 1);
+    if (serving === 20) {
+      setServing(20);
+    }
+  };
+
+  let handleRemove = () => {
+    setServing((prev) => prev - 1);
+    if (serving === 1) {
+      setServing(1);
+    }
+  };
+
+
   return (
     <Stack marginBottom="20px">
       <Box
         width="100%"
-        height="300px"
+        height="350px"
         position="relative"
         marginBottom="70px"
         top={0}
@@ -20,7 +52,7 @@ const RecipeDetails = ({ data, isLoading }) => {
         className="img-container"
       >
         {isLoading && (
-          <Skeleton variant="rect" width="100%" height="100%" >
+          <Skeleton variant="rect" width="100%" height="100%">
             <img
               width="100%"
               height="100%"
@@ -59,23 +91,27 @@ const RecipeDetails = ({ data, isLoading }) => {
           </Typography>
         </Stack>
       </Box>
-      <Stack direction="row" padding="0 30px">
-        <Stack direction="row" alignItems="center" marginRight="35px">
-          <AccessTimeIcon
-            sx={{ color: "#f38e82", fontSize: "25px", marginRight: "10px" }}
-          />
-          <Typography variant="h6" component="p" fontWeight={300}>
-            <span style={{ fontWeight: 900 }}>75</span> Minutes
-          </Typography>
+      <Stack direction="row" justifyContent="space-around" padding="0 30px">
+        <Stack direction="row">
+          <Stack direction="row" alignItems="center" marginRight="35px">
+            <AccessTimeIcon
+              sx={{ color: "#f38e82", fontSize: "25px", marginRight: "10px" }}
+            />
+            <Typography variant="h6" component="p" fontWeight={300}>
+              <span style={{ fontWeight: 500 }}>{timeCalculator}</span> Minutes
+            </Typography>
+          </Stack>
+
+          <Stack direction="row" alignItems="center" marginRight="25px">
+            <PeopleOutlineIcon
+              sx={{ color: "#f38e82", fontSize: "25px", marginRight: "10px" }}
+            />
+            <Typography variant="h6" component="p" fontWeight={300}>
+              <span style={{ fontWeight: 500 }}>{serving}</span> Servings
+            </Typography>
+          </Stack>
         </Stack>
-        <Stack direction="row" alignItems="center" marginRight="25px">
-          <PeopleOutlineIcon
-            sx={{ color: "#f38e82", fontSize: "25px", marginRight: "10px" }}
-          />
-          <Typography variant="h6" component="p" fontWeight={300}>
-            <span style={{ fontWeight: 900 }}>4</span> Servings
-          </Typography>
-        </Stack>
+
         <Stack direction="row" alignItems="center" marginRight="85px">
           <RemoveCircleOutlineIcon
             sx={{
@@ -87,6 +123,7 @@ const RecipeDetails = ({ data, isLoading }) => {
                 transition: "all 0.3s ease-in-out",
               },
             }}
+            onClick={handleRemove}
           />
           <AddCircleOutlineIcon
             sx={{
@@ -98,6 +135,7 @@ const RecipeDetails = ({ data, isLoading }) => {
                 transition: "all 0.3s ease-in-out",
               },
             }}
+            onClick={handleAdd}
           />
         </Stack>
         <Stack
