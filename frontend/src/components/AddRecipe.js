@@ -1,5 +1,5 @@
 import { Stack } from "@mui/system";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { Typography } from "@mui/material";
@@ -8,7 +8,6 @@ import Modal from './Modal'
 import Context from "../context/Context";
 
 const AddRecipe = () => {
-  // const [openModal, setOpenModal] = useState(false); setOpenModal(true)
   const ctx = useContext(Context);
 
   return (

@@ -7,60 +7,19 @@ import { Stack } from "@mui/system";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
 import Context from "../context/Context";
+import FormIngredients from "./Forms/FormIngredients";
+import FormData from "./Forms/FormData";
 
-const recipeData = [
-  "title",
-  "URL",
-  "image URL",
-  "publisher",
-  "prep time",
-  "servings",
-];
-
-const ingredientData = [
-  "ingredient 1",
-  "ingredient 2",
-  "ingredient 3",
-  "ingredient 4",
-  "ingredient 5",
-  "ingredient 6",
-];
-
-const Input = ({ name }) => {
-  return (
-    <Stack direction="row" marginBottom="30px" alignItems="center">
-      <label
-        htmlFor={name}
-        style={{ textTransform: "capitalize", width: "100px" }}
-      >
-        {name}
-      </label>
-      <input
-        type="text"
-        placeholder={`type ${name}`}
-        name={name}
-        id={name}
-        className="input-data"
-        style={{
-          width: "300px",
-          height: "35px",
-          borderRadius: "10px",
-          paddingLeft: "10px",
-          border: "1px solid #ddd",
-        }}
-      />
-    </Stack>
-  );
-};
-
-const Modal = ({close}) => {
+const Modal = () => {
   const [isClicked, setIsClicked] = useState(false);
+
   const ctx = useContext(Context)
+
   useEffect(() => {
     if(isClicked) {
       ctx.closeModal()
     }
-  }, [isClicked])
+  }, [isClicked, ctx])
 
   return ReactDom.createPortal(
     <>
@@ -76,9 +35,7 @@ const Modal = ({close}) => {
             >
               RECIPE DATA
             </Typography>
-            {recipeData.map((name, index) => (
-              <Input key={index} name={name} />
-            ))}
+            <FormData />
           </Stack>
           <Stack flex={1}>
             <Typography
@@ -89,9 +46,7 @@ const Modal = ({close}) => {
             >
               INGREDIENTS
             </Typography>
-            {ingredientData.map((name, index) => (
-              <Input key={index} name={name} />
-            ))}
+            <FormIngredients />
           </Stack>
         </Stack>
         <Stack
@@ -117,6 +72,7 @@ const Modal = ({close}) => {
                 left: "20%",
                 color: "#fff",
               }}
+              type='submit'
             />
             Upload
           </Button>

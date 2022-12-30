@@ -40,7 +40,7 @@ const RecipeDetails = ({ data, isLoading }) => {
         setIsClicked(false)
       }
     }
-  }, [data]);
+  }, [data, ctx.items]);
 
   const handleAdd = () => {
     setServing((prev) => prev + 1);

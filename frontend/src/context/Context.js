@@ -5,6 +5,7 @@ const Context = createContext(null);
 
 const initialState = {
   items: [],
+  recipes: [], 
   modal: false
 };
 
@@ -23,6 +24,10 @@ export const ContextProvider = ({ children }) => {
     dispatch({ type: "OPEN_MODAL" });
   }
 
+  const addRecipe = (recipe) => {
+    dispatch({ type: "ADD_RECIPE", payload: recipe });
+  }
+
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   }
@@ -32,8 +37,10 @@ export const ContextProvider = ({ children }) => {
     removeFromFavorites,
     openModal,
     closeModal,
+    addRecipe,
     items: state.items,
-    modal: state.modal
+    modal: state.modal,
+    recipes: state.recipes
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
