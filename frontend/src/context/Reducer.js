@@ -20,10 +20,15 @@ const Reducer = (state, action) => {
        ...state,
        modal: false
     }
+
     case "ADD_RECIPE" :
       return {
         ...state,
-        recipes: [...state.recipes, action.payload]
+        recipes: {
+          ...state.recipes,
+          [action.payload.name]: action.payload.recipe
+          
+        }
       }
     default: 
       return state;
@@ -31,3 +36,4 @@ const Reducer = (state, action) => {
 };
 
 export default Reducer;
+

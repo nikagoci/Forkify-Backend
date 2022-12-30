@@ -47,6 +47,7 @@ exports.getRecipe = async (req, res) => {
 
 exports.addRecipe = async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     const newRecipe = await Recipe.create(req.body);
 
     res.status(201).json({

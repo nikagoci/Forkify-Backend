@@ -5,9 +5,7 @@ const cors = require('cors')
 
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://127.0.0.1:3000'
-}))
+app.use(cors())
 
 app.use("/api/v1/recipes", recipesRouter)
 

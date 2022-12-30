@@ -1,9 +1,36 @@
 import { Stack } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import Context from "../../context/Context";
 
 const FormIngredients = () => {
+  const [data, setData] = useState({
+    ing1: '',
+    ing2: '',
+    ing3: '',
+    ing4: '',
+    ing5: '',
+    ing6: '',
+  })
+
+  const btnRef = useRef(null)
+  const ctx = useContext(Context)
+
+  useEffect(() => {
+    const {ing1, ing2, ing3, ing4, ing5, ing6} = data;
+    if(ing1 && ing2 && ing3 && ing4 && ing5 && ing6){
+      btnRef.current.click();
+    }
+  }, [data])
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let ingredients = [data.ing1, data.ing2, data.ing3, data.ing4, data.ing5, data.ing6];
+    ctx.addRecipe('ingredients',ingredients)
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 1" style={style.label}>
             ingredient 1
@@ -15,6 +42,7 @@ const FormIngredients = () => {
           id="ingredient 1"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing1: e.target.value })}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
@@ -28,6 +56,7 @@ const FormIngredients = () => {
           id="ingredient 2"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing2: e.target.value })}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
@@ -41,6 +70,7 @@ const FormIngredients = () => {
           id="ingredient 3"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing3: e.target.value })}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
@@ -54,6 +84,7 @@ const FormIngredients = () => {
           id="ingredient 4"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing4: e.target.value })}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
@@ -67,6 +98,7 @@ const FormIngredients = () => {
           id="ingredient 5"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing5: e.target.value })}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
@@ -80,8 +112,10 @@ const FormIngredients = () => {
           id="ingredient 6"
           className="input-data"
           style={style.input}
+          onChange={(e) => setData({...data, ing6: e.target.value })}
         />
       </Stack>
+      <input type="submit" style={{visibility: 'hidden'}} ref={btnRef} />
     </form>
   );
 };

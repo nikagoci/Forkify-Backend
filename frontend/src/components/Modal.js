@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import ReactDom from "react-dom";
 
+import axios from 'axios'
+
 import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 
@@ -20,6 +22,16 @@ const Modal = () => {
       ctx.closeModal()
     }
   }, [isClicked, ctx])
+
+  const addRecipe = async() => {
+    try {
+      console.log(ctx.recipes)
+      const response = await axios.post('http://localhost:5000/api/v1/recipes', ctx.recipes);
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
 
   return ReactDom.createPortal(
     <>
@@ -64,6 +76,7 @@ const Modal = () => {
               backgroundImage:
                 "linear-gradient(to right bottom, #FBDB89, #F48982)",
             }}
+            onClick={addRecipe}
           >
             <CloudUploadIcon
               sx={{
