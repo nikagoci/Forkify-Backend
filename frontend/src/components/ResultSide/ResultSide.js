@@ -29,8 +29,9 @@ const ResultSide = ({setRecipeId, setIsDataLoaded}) => {
 
   let totalPages;
   if (allRecipe !== 0) {
-    totalPages = Math.ceil(allRecipe / 10);
+    totalPages = Math.ceil(allRecipe / 9);
   }
+
 
   return (
     <Stack flexBasis="30%" backgroundColor="#fff" padding="40px 0">
