@@ -10,6 +10,16 @@ const Reducer = (state, action) => {
         ...state,
         items: state.items.filter(item => item._id !== action.payload)
       }
+    case "OPEN_MODAL":
+      return {
+        ...state,
+        modal: true
+      }
+    case "CLOSE_MODAL":
+      return {
+       ...state,
+       modal: false
+    }
   }
 };
 

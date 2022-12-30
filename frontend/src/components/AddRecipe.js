@@ -1,13 +1,15 @@
 import { Stack } from "@mui/system";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { Typography } from "@mui/material";
 
 import Modal from './Modal'
+import Context from "../context/Context";
 
 const AddRecipe = () => {
-  const [openModal, setOpenModal] = useState(false)
+  // const [openModal, setOpenModal] = useState(false); setOpenModal(true)
+  const ctx = useContext(Context);
 
   return (
     <Stack
@@ -19,14 +21,14 @@ const AddRecipe = () => {
         marginRight: "20px",
         ":hover": { transform: "translateY(-5px)" },
       }}
-      onClick={() => setOpenModal(true)}
+      onClick={() => ctx.openModal()}
     >
       <ControlPointIcon sx={{ color: "#f38e82", marginRight: "5px" }} />
       <Typography variant="h6" component="h5" color="grey">
         ADD RECIPE
       </Typography>
-      {openModal && (
-        <Modal />
+      {ctx.modal && (
+        <Modal close={() => ctx.closeModal()} />
       )}
     </Stack>
   );

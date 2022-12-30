@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDom from "react-dom";
 
 import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import CloseIcon from '@mui/icons-material/Close';
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CloseIcon from "@mui/icons-material/Close";
+import Context from "../context/Context";
 
 const recipeData = [
   "title",
@@ -52,10 +53,18 @@ const Input = ({ name }) => {
   );
 };
 
-const Modal = ({ onClose, open }) => {
+const Modal = ({close}) => {
+  const [isClicked, setIsClicked] = useState(false);
+  const ctx = useContext(Context)
+  useEffect(() => {
+    if(isClicked) {
+      ctx.closeModal()
+    }
+  }, [isClicked])
+
   return ReactDom.createPortal(
     <>
-      <Stack sx={style.overlay} />
+      <Stack sx={style.overlay} onClick={() => setIsClicked(true)} />
       <Stack sx={style.modal}>
         <Stack direction="row">
           <Stack flex={1}>
@@ -89,7 +98,7 @@ const Modal = ({ onClose, open }) => {
           direction="row"
           height="100%"
           justifyContent="center"
-          position='relative'
+          position="relative"
         >
           <Button
             variant="contained"
@@ -101,11 +110,28 @@ const Modal = ({ onClose, open }) => {
                 "linear-gradient(to right bottom, #FBDB89, #F48982)",
             }}
           >
-            <CloudUploadIcon sx={{position: 'absolute', top: '25%', left: '20%', color: '#fff'}} />
-                Upload
+            <CloudUploadIcon
+              sx={{
+                position: "absolute",
+                top: "25%",
+                left: "20%",
+                color: "#fff",
+              }}
+            />
+            Upload
           </Button>
         </Stack>
-        <CloseIcon sx={{position: 'absolute', top: '20px', right: '20px', width: '30px', height: '30px', cursor: 'pointer'}} />
+        <CloseIcon
+          sx={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            width: "30px",
+            height: "30px",
+            cursor: "pointer",
+          }}
+          onClick={() => setIsClicked(true)}
+        />
       </Stack>
     </>,
     document.getElementById("portal")
