@@ -1,125 +1,104 @@
+import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Context from "../../context/Context";
+import React from "react";
 
-const FormData = () => {
-  const [data, setData] = useState({
-    title: '',
-    source_url: '',
-    image_url: '',
-    publisher: '',
-    publisher_url: '',
-    social_rank: '',
-  })
-
-  const btnRef = useRef(null);
-  const ctx = useContext(Context)
-
-  useEffect(() => {
-    const {title, source_url, image_url, publisher, publisher_url, social_rank} = data;
-    if(title && source_url && image_url && publisher && publisher_url && social_rank){
-      btnRef.current.click();
-    }
-  }, [data])
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    ctx.addRecipe('title', data.title)
-    ctx.addRecipe('source_url', data.source_url)
-    ctx.addRecipe('image_url', data.image_url)
-    ctx.addRecipe('publisher', data.publisher)
-    ctx.addRecipe('publisher_url', data.publisher_url)
-    ctx.addRecipe('social_rank ', data.social_rank)
-  }
+const FormData = ({register, errors}) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <Stack>
+      <Typography
+        variant="h5"
+        component="h2"
+        marginBottom="40px"
+        fontWeight={700}
+        textTransform="uppercase"
+      >
+        Recipe Data
+      </Typography>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="title" style={style.label}>
-            Title
+          Title
         </label>
         <input
           type="text"
-          placeholder={`Type Title`}
+          placeholder={`${errors.title ? errors.title.message : "Type title"}`}
           name="title"
           id="title"
-          className="input-data"
+          className={`input-data ${errors.title && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, title: e.target.value })}
+          {...register("title")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="URL" style={style.label}>
-            URL
+          URL
         </label>
         <input
           type="text"
-          placeholder={`Type URL`}
+          placeholder={`${errors.source_url ? errors.source_url.message : "Type URL"}`}
           name="URL"
           id="URL"
-          className="input-data"
+          className={`input-data ${errors.source_url && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, source_url: e.target.value })}
+          {...register("source_url")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="image url" style={style.label}>
-            image url
+          image url
         </label>
         <input
           type="text"
-          placeholder={`Type image url`}
+          placeholder={`${errors.image_url ? errors.image_url.message : "Type image URL"}`}
           name="image url"
           id="image url"
-          className="input-data"
+          className={`input-data ${errors.image_url && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, image_url: e.target.value })}
+          {...register("image_url")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="publisher" style={style.label}>
-            publisher
+          publisher
         </label>
         <input
           type="text"
-          placeholder={`Type publisher name`}
+          placeholder={`${errors.publisher ? errors.publisher.message : "Type publisher"}`}
           name="publisher"
           id="publisher"
-          className="input-data"
+          className={`input-data ${errors.publisher && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, publisher: e.target.value })}
+          {...register("publisher")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="prep time" style={style.label}>
-            publisher URL
+          publisher URL
         </label>
         <input
           type="text"
-          placeholder={`Type prep time`}
+          placeholder={`${errors.publisher_url ? errors.publisher_url.message : "Type publisher Url"}`}
           name="prep time"
           id="prep time"
-          className="input-data"
+          className={`input-data ${errors.publisher_url && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, publisher_url: e.target.value })}
+          {...register("publisher_url")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="servings" style={style.label}>
-            social rank
+          social rank
         </label>
         <input
-          type="text"
-          placeholder={`Type servings`}
+          type="number"
+          placeholder={`${errors.social_rank ? errors.social_rank.message : "Type social rank"}`}
           name="servings"
           id="servings"
-          className="input-data"
+          className={`input-data ${errors.social_rank && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, social_rank: e.target.value })}
+          {...register("social_rank")}
         />
       </Stack>
-      <input type="submit" style={{visibility: 'hidden'}} ref={btnRef} />
-    </form>
+    </Stack>
   );
 };
 

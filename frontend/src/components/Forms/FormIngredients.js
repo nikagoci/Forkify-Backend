@@ -1,53 +1,35 @@
-import { Stack } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Context from "../../context/Context";
+import { Stack, Typography } from "@mui/material";
+import React from "react";
 
-const FormIngredients = () => {
-  const [data, setData] = useState({
-    ing1: '',
-    ing2: '',
-    ing3: '',
-    ing4: '',
-    ing5: '',
-    ing6: '',
-  })
-
-  const btnRef = useRef(null)
-  const ctx = useContext(Context)
-
-  useEffect(() => {
-    const {ing1, ing2, ing3, ing4, ing5, ing6} = data;
-    if(ing1 && ing2 && ing3 && ing4 && ing5 && ing6){
-      btnRef.current.click();
-    }
-  }, [data])
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let ingredients = [data.ing1, data.ing2, data.ing3, data.ing4, data.ing5, data.ing6];
-    ctx.addRecipe('ingredients',ingredients)
-  }
-
+const FormIngredients = ({register, errors}) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <Stack>
+      <Typography
+        variant="h5"
+        component="h2"
+        marginBottom="40px"
+        fontWeight={700}
+        textTransform="uppercase"
+      >
+        Ingredients
+      </Typography>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 1" style={style.label}>
-            ingredient 1
+          ingredient 1
         </label>
         <input
           type="text"
-          placeholder={`Type ingredient 1`}
+          placeholder={`${errors.ingredient1 ? errors.ingredient1.message : "Type ingredient1"}`}
           name="ingredient 1"
           id="ingredient 1"
-          className="input-data"
+          className={`input-data ${errors.ingredient1 && "error-input"}`}
           style={style.input}
-          onChange={(e) => setData({...data, ing1: e.target.value })}
+          {...register("ingredient1")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 2" style={style.label}>
-            ingredient 2
+          ingredient 2
         </label>
         <input
           type="text"
@@ -56,12 +38,12 @@ const FormIngredients = () => {
           id="ingredient 2"
           className="input-data"
           style={style.input}
-          onChange={(e) => setData({...data, ing2: e.target.value })}
+          {...register("ingredient2")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 3" style={style.label}>
-            ingredient 3
+          ingredient 3
         </label>
         <input
           type="text"
@@ -70,12 +52,12 @@ const FormIngredients = () => {
           id="ingredient 3"
           className="input-data"
           style={style.input}
-          onChange={(e) => setData({...data, ing3: e.target.value })}
+          {...register("ingredient3")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 4" style={style.label}>
-            ingredient 4
+          ingredient 4
         </label>
         <input
           type="text"
@@ -84,12 +66,12 @@ const FormIngredients = () => {
           id="ingredient 4"
           className="input-data"
           style={style.input}
-          onChange={(e) => setData({...data, ing4: e.target.value })}
+          {...register("ingredient4")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 5" style={style.label}>
-            ingredient 5
+          ingredient 5
         </label>
         <input
           type="text"
@@ -98,12 +80,12 @@ const FormIngredients = () => {
           id="ingredient 5"
           className="input-data"
           style={style.input}
-          onChange={(e) => setData({...data, ing5: e.target.value })}
+          {...register("ingredient5")}
         />
       </Stack>
       <Stack direction="row" marginBottom="30px" alignItems="center">
         <label htmlFor="ingredient 6" style={style.label}>
-            ingredient 6
+          ingredient 6
         </label>
         <input
           type="text"
@@ -112,23 +94,22 @@ const FormIngredients = () => {
           id="ingredient 6"
           className="input-data"
           style={style.input}
-          onChange={(e) => setData({...data, ing6: e.target.value })}
+          {...register("ingredient6")}
         />
       </Stack>
-      <input type="submit" style={{visibility: 'hidden'}} ref={btnRef} />
-    </form>
+    </Stack>
   );
 };
 
 const style = {
-    label: { textTransform: "capitalize", width: "100px" },
-    input: {
-      width: "300px",
-      height: "35px",
-      borderRadius: "10px",
-      paddingLeft: "10px",
-      border: "1px solid #ddd",
-    },
-  };
+  label: { textTransform: "capitalize", width: "100px" },
+  input: {
+    width: "300px",
+    height: "35px",
+    borderRadius: "10px",
+    paddingLeft: "10px",
+    border: "1px solid #ddd",
+  },
+};
 
 export default FormIngredients;
