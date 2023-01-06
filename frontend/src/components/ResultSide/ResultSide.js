@@ -16,12 +16,12 @@ const ResultSide = ({setRecipeId, setIsDataLoaded}) => {
     async function fetchData() {
       const response = await axios.get(
         `http://localhost:5000/api/v1/recipes?limit=9&page=${page}`
-      );
-      const allData = response.data;
-      setData(allData.recipes);
-      setAllRecipe(allData.length);
-      setLoading(false);
-      setIsDataLoaded(true)
+        );
+        const allData = response.data;
+        setData(allData.recipes);
+        setAllRecipe(allData.length);
+        setLoading(false);
+        setIsDataLoaded(true)
     }
 
     fetchData();
@@ -32,9 +32,13 @@ const ResultSide = ({setRecipeId, setIsDataLoaded}) => {
     totalPages = Math.ceil(allRecipe / 9);
   }
 
+  let checkItems;
+  if(page === totalPages){
+    checkItems = allRecipe % 9 !== 0 && '860px'
+  }
 
   return (
-    <Stack flexBasis="30%" backgroundColor="#fff" padding="40px 0">
+    <Stack flexBasis="30%" backgroundColor="#fff" padding="40px 0" height={checkItems}>
       {loading && <Spinner />}
       <Stack marginBottom="15px">
         {data.map((recipe, ind) => (
