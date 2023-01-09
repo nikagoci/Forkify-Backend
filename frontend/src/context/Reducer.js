@@ -20,15 +20,10 @@ const Reducer = (state, action) => {
        ...state,
        modal: false
     }
-
-    case "ADD_RECIPE" :
+    case "ADD_QUERY":
       return {
         ...state,
-        recipes: {
-          ...state.recipes,
-          [action.payload.name]: action.payload.recipe
-          
-        }
+        query: action.payload
       }
     default: 
       return state;
