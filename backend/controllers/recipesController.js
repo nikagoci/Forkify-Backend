@@ -2,20 +2,27 @@ const Recipe = require("../models/recipesModel");
 const APIFeatures = require("../utils/apiFeatures");
 
 exports.getAllRecipe = async (req, res) => {
-  try {
+  try {    
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     const features = new APIFeatures(Recipe.find(), req.query)
-      .filter()
-      .sort()
-      .fieldLimit()
-      .paginate();
+    .filter()
+    .sort()
+    .fieldLimit()
+    .paginate();
 
-    const allRecipe = await Recipe.find();
     const recipes = await features.query;
+
+    // let filteredData;
+
+    // if(req.query.recipe){
+    //   filteredData = allRecipe.filter(item => {
+    //     return item.title.toLowerCase().includes(req.query.recipe.toLowerCase())
+    //   })
+    // }
 
     res.status(200).json({
       status: "success",
-      length: allRecipe.length,
+      length: recipes.length,
       recipes,
     });
   } catch (err) {

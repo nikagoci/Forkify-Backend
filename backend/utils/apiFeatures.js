@@ -11,6 +11,11 @@ class APIFeatures {
         delete queryObj[el];
       });
 
+      if(queryObj.recipe){
+        queryObj.title = { $regex: queryObj.recipe, $options: "i" }
+        delete queryObj.recipe;
+      }
+
       let queryStr = JSON.stringify(queryObj);
       queryStr = queryStr.replace(
         /\b(gte|gt|lte|lt)\b/g,
