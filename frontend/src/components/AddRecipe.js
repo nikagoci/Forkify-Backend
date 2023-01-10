@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 import Modal from './Modal'
 import Context from "../context/Context";
 
-const AddRecipe = () => {
+const AddRecipe = ({setRecipeId}) => {
   const ctx = useContext(Context);
 
   return (
@@ -27,7 +27,7 @@ const AddRecipe = () => {
         ADD RECIPE
       </Typography>
       {ctx.modal && (
-        <Modal close={() => ctx.closeModal()} />
+        <Modal setRecipeId={setRecipeId} close={() => ctx.closeModal()} />
       )}
     </Stack>
   );

@@ -1,7 +1,7 @@
 import { Stack } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FormData from "./FormData";
 import FormIngredients from "./FormIngredients";
 
@@ -9,11 +9,14 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Context from "../../context/Context";
 
-const MainForm = () => {
+const MainForm = ({setRecipeId}) => {
   const [isSent, setIsSent] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [recipeId, setRecipeId] = useState(null);
+  const [createdId, setCreatedId] = useState(null);
+
+  const ctx = useContext(Context)
 
   const schema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -80,7 +83,7 @@ const MainForm = () => {
       .then((res) => {
         if (res.status === 201) {
           setIsSent(true);
-          setRecipeId(res.data.recipe._id)
+          setCreatedId(res.data.recipe._id)
         }
       })
       .catch((err) => {
@@ -89,6 +92,14 @@ const MainForm = () => {
         }
       });
   };
+  
+  const handleRecipeShow = () => {
+    setRecipeId(createdId);
+    // ctx.closeModal()
+    setTimeout(() => {
+      ctx.closeModal()
+    }, 10)
+  }
 
   return (
     <>
@@ -145,7 +156,7 @@ const MainForm = () => {
                 marginTop: '120px'
               }}
               type="submit"
-              onClick={() => console.log(recipeId)}
+              onClick={handleRecipeShow}
             >
               See Added Recipe
             </Button>
@@ -157,7 +168,7 @@ const MainForm = () => {
           variant="h3"
           component="h2"
           marginTop="120px"
-          color="#346019"
+          color="red"
         >
           Data Sent Failed
         </Typography>
@@ -172,7 +183,7 @@ const MainForm = () => {
               marginTop: '120px'
             }}
             type="submit"
-            onClick={() => console.log(recipeId)}
+            onClick={() => setIsError(false)}
           >
             Go Back 
           </Button>

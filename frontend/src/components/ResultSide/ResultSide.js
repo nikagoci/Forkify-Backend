@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 import Context from "../../context/Context";
 import { Typography } from "@mui/material";
 
-const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
+const ResultSide = ({ setRecipeId }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allRecipe, setAllRecipe] = useState(0);
@@ -24,15 +24,11 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
         );
         const allData = response.data;
         setData(allData.recipes);
-
-
-        
         setLoading(false);
-        setIsDataLoaded(true);
       }
     }
     fetchData();
-  }, [page, setIsDataLoaded, ctx.query]);
+  }, [page, ctx.query]);
 
   useEffect(() => {
     async function fetchData() {
@@ -43,7 +39,6 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
 
         setAllRecipe(allResponse.data.length);
       }
-
     }
     fetchData()
   }, [ctx.query])
@@ -63,11 +58,6 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
   let totalPages;
   if (allRecipe !== 0) {
     totalPages = Math.ceil(allRecipe / 9);
-  }
-
-  let checkItems;
-  if (page === totalPages) {
-    checkItems = allRecipe % 9 !== 0 && "860px";
   }
 
   if (isError) {
@@ -91,7 +81,6 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
         flexBasis="30%"
         backgroundColor="#fff"
         padding="40px 0"
-        height={checkItems}
       >
         {loading && ctx.query && <Spinner />}
         <Stack marginBottom="15px">

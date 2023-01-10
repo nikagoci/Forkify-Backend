@@ -22,7 +22,7 @@ const TopForkify = ({setRecipeId}) => {
         <Stack>
         </Stack>
         <Stack direction="row" position="relative" top={0} left={0} alignItems='center'>
-          <AddRecipe />
+          <AddRecipe setRecipeId={setRecipeId} />
           {ctx.items.length > 0 && (
             <FavoriteIcon
               sx={{ color: "#F59A83", fontSize: "40px", cursor: "pointer" }}

@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Context from "../context/Context";
 import MainForm from "./Forms/MainForm";
 
-const Modal = () => {
+const Modal = ({setRecipeId}) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const ctx = useContext(Context)
@@ -25,7 +25,7 @@ const Modal = () => {
       <Stack sx={style.modal}>
         <Stack direction="row">
           <Stack flex={1}>
-            <MainForm />
+            <MainForm setRecipeId={setRecipeId} />
           </Stack>
         </Stack>
         <CloseIcon
