@@ -7,6 +7,7 @@ import Context from "../context/Context";
 
 const Input = () => {
   const [value, setValue] = useState("");
+  const [outline, setOutline] = useState("none");
   const ctx = useContext(Context);
 
   const handleInputChange = (e) => {
@@ -16,6 +17,11 @@ const Input = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     ctx.addQuery(value);
+    if (value === "pizza" || value === "burger" || value === "salad") {
+      setOutline("none");
+    } else {
+      setOutline("1px solid red");
+    }
     setValue("");
   };
 
@@ -28,6 +34,7 @@ const Input = () => {
             width: "100%",
             fontSize: "1rem",
             border: "none",
+            outline: outline,
             borderRadius: "10rem",
             paddingLeft: "30px",
           }}

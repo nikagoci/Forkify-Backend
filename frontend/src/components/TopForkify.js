@@ -18,9 +18,7 @@ const TopForkify = ({setRecipeId}) => {
         <Stack width="150px">
           <img src={Logo} alt="logo" width="100%" height="100%" />
         </Stack>
-        <Stack>
           <Input />
-        </Stack>
         <Stack>
         </Stack>
         <Stack direction="row" position="relative" top={0} left={0} alignItems='center'>
