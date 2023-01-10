@@ -24,13 +24,29 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
         );
         const allData = response.data;
         setData(allData.recipes);
-        setAllRecipe(allData.length);
+
+
+        
         setLoading(false);
         setIsDataLoaded(true);
       }
     }
     fetchData();
   }, [page, setIsDataLoaded, ctx.query]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (ctx.query) {
+        const allResponse = await axios.get(
+          `http://localhost:5000/api/v1/recipes?&recipe=${ctx.query}`
+        )
+
+        setAllRecipe(allResponse.data.length);
+      }
+
+    }
+    fetchData()
+  }, [ctx.query])
 
   useEffect(() => {
     if (
@@ -60,7 +76,7 @@ const ResultSide = ({ setRecipeId, setIsDataLoaded }) => {
         flexBasis="30%"
         backgroundColor="#fff"
         padding="40px 0"
-        height='860px'
+        height='820px'
         alignItems="center"
       >
         <Typography variant="h5" component='h4' color='#f38e82' marginBottom={4}>Please Search Valid Recipe</Typography>
